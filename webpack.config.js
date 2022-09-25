@@ -1,8 +1,8 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
@@ -31,7 +31,32 @@ module.exports = {
 			],
 		}),
 		new MiniCssExtractPlugin({
-			filename: 'bundle.[hash].css'
+			filename: 'css/bundle.[hash].css'
 		})
 	],
+	module: {
+		rules: [
+			{
+				test: /\.s[ac]ss$/i,
+				use: [
+					// 3. Creates `style` nodes from JS strings
+					MiniCssExtractPlugin.loader,
+					// 2. Translates CSS into CommonJS
+					'css-loader',
+					// 1. Compiles Sass to CSS
+					'sass-loader',
+				],
+			},
+			{
+				test: /\.m?js$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env']
+					}
+				}
+			}
+		],
+	},
 }
