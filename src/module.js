@@ -1,0 +1,1 @@
+console.log("Test command from module.js");
