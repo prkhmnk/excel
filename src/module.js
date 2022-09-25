@@ -1,7 +1,7 @@
-console.log("Test command from module.js");
+console.log('Test command from module.js');
 
 async function start() {
-	await Promise.resolve();
+  return await Promise.resolve('async works!');
 }
 
-start();
+start().then(console.log);
